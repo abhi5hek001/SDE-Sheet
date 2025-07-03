@@ -33,23 +33,57 @@ vector<int> findMissingAndRepeatedValues(vector<vector<int>> &grid)
     return {a, b};
 }
 
+vector<int> findMissingAndRepeatedValuesOptimal(vector<vector<int>> &grid)
+{
+    int n = grid.size();
+    int elem = n * n;
+    long long sn = 1LL * (elem * (elem + 1)) / 2;
+    long long s2n = 1LL * (elem * (elem + 1) * 1LL * (2 * elem + 1)) / 6;
+    long long s = 0, s2 = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            s += grid[i][j];
+            s2 += 1LL * grid[i][j] * grid[i][j];
+        }
+    }
+    long long val1 = s - sn;   // x - y
+    long long val2 = s2 - s2n; // x^2 - y^2
+    val2 = val2 / val1;        // x + y
+    long long x = (val1 + val2) / 2;
+    long long y = x - val1;
+
+    return {(int)x, (int)y};
+}
+
 void solve()
 {
     vvi grid = {
-        {9,1,7},
-        {8,9,2},
-        {3,4,6}
-    };
-    for(auto it: grid){
-        for(auto iter: it){
+        {9, 1, 7},
+        {8, 9, 2},
+        {3, 4, 6}};
+    for (auto it : grid)
+    {
+        for (auto iter : it)
+        {
             cout << iter << " ";
         }
         cout << endl;
     }
-    cout << endl;
+    cout << endl << "Better" << endl;
     vi ans = findMissingAndRepeatedValues(grid);
     cout << "Repeating Number: " << ans[0] << endl;
     cout << "Missing Number: " << ans[1] << endl;
+
+    grid = {
+        {9, 1, 7},
+        {8, 9, 2},
+        {3, 4, 6}};
+    cout << endl << "Optimal 1" << endl;
+    vi ans2 = findMissingAndRepeatedValuesOptimal(grid);
+    cout << "Repeating Number: " << ans2[0] << endl;
+    cout << "Missing Number: " << ans2[1] << endl;
 }
 
 signed main()
