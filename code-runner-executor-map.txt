@@ -1,0 +1,3 @@
+// add this line in your code runner executor map in settings
+
+"cpp": "g++ -O2 $fileName -o a.exe -Wno-unused-result && ./a.exe",
