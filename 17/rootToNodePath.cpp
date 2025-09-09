@@ -32,48 +32,40 @@ TreeNode* buildTree(const vector<int>& arr) {
     return nodes[0];
 }
 
-vvi verticalOrderTraversal(TreeNode* root){
-    // we kept vertical first to sort it according to vertical, then level wise
-    map<int, map<int, multiset<int>>> nodes; // {vertical, {level, nodes} }
-    queue<pair<TreeNode*, pair<int, int>>> q; // {node, {level, vertical} }
-    q.push({root, {0, 0}});
-    while(!q.empty()){
-        auto it = q.front();
-        q.pop();
-        TreeNode* node = it.first;
-        int level = it.second.first;
-        int vertical = it.second.second;
-        nodes[vertical][level].insert(node->val);
-        if(node->left){
-            q.push({node->left, {level+1, vertical-1}});
-        }
-        if(node->right){
-            q.push({node->right, {level+1, vertical+1}});
-        }
+
+// TC - O(N)
+// SC - O(H)
+bool rootToNodePath(TreeNode* root, vi &ans, int node){
+    if(!root) return false;
+
+    ans.push_back(root->val);
+
+    if(root->val == node) return true;
+
+    if(rootToNodePath(root->left, ans, node) ||
+     rootToNodePath(root->right, ans, node)){
+        return true;
     }
-    vector<vector<int>> ans;
-    for(auto p: nodes){
-        vector<int> vert;
-        for(auto q: p.second){
-            vert.insert(vert.end(), q.second.begin(), q.second.end());
-        }
-        ans.push_back(vert);
-    }
-    return ans;
+
+    // backtracking
+    ans.pop_back();
+
+    return false;
 }
 
 void solve() {
     // Example usage:
-    vector<int> arr = {1, 2, 3, -1, 5};
+    vector<int> arr = {1, 2, 3, 4, 5, -1, -1, -1, -1, 6, 7};
     TreeNode* root = buildTree(arr);
-    vvi ans;
-    ans = verticalOrderTraversal(root);
-
+    
+    vi ans;
+    int node = 7;
+    
+    rootToNodePath(root, ans, node);
+    
     for(auto it: ans){
-        for(auto i: it){
-            cout << i << " ";
-        } cout << endl;
-    }
+        cout << it << " ";
+    } cout << endl;
 }
 
 signed main() {
