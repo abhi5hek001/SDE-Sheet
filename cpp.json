@@ -4,6 +4,7 @@
 		"body": [
 			"#include <bits/stdc++.h>",
 			"using namespace std;",
+			"#include <chrono>",
 			"",
 			"using ll = long long;",
 			"using pii = pair<int, int>;",
@@ -13,7 +14,16 @@
 			"using vvi = vector<vi>;",
 			"",
 			"void solve() {",
+			"    auto start = chrono::high_resolution_clock::now();",
+			"",
+			"    // Example usage:",
+			"    int n = 5;",
+			"    vi arr = {1, 2, 3, 4, 5};",
 			"    $1",
+			"",
+			"    auto stop = chrono::high_resolution_clock::now();",
+			"    auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);",
+			"    cout << \"Time taken: \" << duration.count() << \" ns\\n\";",
 			"}",
 			"",
 			"signed main() {",
@@ -30,7 +40,7 @@
 			"    return 0;",
 			"}"
 		],
-		"description": "Competitive Programming Template with typedefs and input/output redirection"
+		"description": "Competitive Programming Template with typedefs, I/O redirection, example usage, and time evaluation"
 	},
 
 	"Linked List Template": {
@@ -38,6 +48,7 @@
 		"body": [
 			"#include <bits/stdc++.h>",
 			"using namespace std;",
+			"#include <chrono>",
 			"",
 			"using ll = long long;",
 			"using pii = pair<int, int>;",
@@ -61,10 +72,18 @@
 			"}",
 			"",
 			"void solve() {",
+			"    auto start = chrono::high_resolution_clock::now();",
+			"",
 			"    // Example usage:",
-			"    // Node* head = new Node(1);",
-			"    // head->next = new Node(2);",
-			"    // printList(head);",
+			"    Node* head = new Node(1);",
+			"    head->next = new Node(2);",
+			"    head->next->next = new Node(3);",
+			"    printList(head);",
+			"    $1",
+			"",
+			"    auto stop = chrono::high_resolution_clock::now();",
+			"    auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);",
+			"    cout << \"Time taken: \" << duration.count() << \" ns\\n\";",
 			"}",
 			"",
 			"signed main() {",
@@ -81,7 +100,7 @@
 			"    return 0;",
 			"}"
 		],
-		"description": "Linked List Template with Node struct, print function, and CP boilerplate"
+		"description": "Linked List Template with Node struct, print function, example usage, CP boilerplate, and time evaluation"
 	},
 
 	"Binary Tree Template": {
@@ -89,6 +108,7 @@
 		"body": [
 			"#include <bits/stdc++.h>",
 			"using namespace std;",
+			"#include <chrono>",
 			"",
 			"using ll = long long;",
 			"using pii = pair<int, int>;",
@@ -122,10 +142,16 @@
 			"}",
 			"",
 			"void solve() {",
+			"    auto start = chrono::high_resolution_clock::now();",
+			"",
 			"    // Example usage:",
-			"    // vector<int> arr = {1, 2, 3, -1, 5};",
-			"    // TreeNode* root = buildTree(arr);",
-			"    // inorder(root);",
+			"    vector<int> arr = {1, 2, 3, -1, 5};",
+			"    TreeNode* root = buildTree(arr);",
+			"    $1",
+			"",
+			"    auto stop = chrono::high_resolution_clock::now();",
+			"    auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);",
+			"    cout << \"Time taken: \" << duration.count() << \" ns\\n\";",
 			"}",
 			"",
 			"signed main() {",
@@ -142,6 +168,6 @@
 			"    return 0;",
 			"}"
 		],
-		"description": "Binary Tree Template with build function from array, inorder traversal, and CP boilerplate"
+		"description": "Binary Tree Template with build function, example usage, CP boilerplate, and time evaluation"
 	}
 }
