@@ -51,7 +51,7 @@ TreeNode *buildTree(const vector<int> &arr)
 int maxWidthOfBinaryTree(TreeNode *root)
 {
     if (!root)
-        return 0;
+        return 0;   
     queue<pair<TreeNode *, int>> q;
     q.push({root, 0});
     int maxwidth = 0;
