@@ -9,12 +9,14 @@ using vll = vector<long long>;
 using vvl = vector<vll>;
 using vvi = vector<vi>;
 
-struct TreeNode {
+struct TreeNode
+{
     int val;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode *left;
+    TreeNode *right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
+
 // Insert a value into the BST
 TreeNode* insertBST(TreeNode* root, int val) {
     if (!root) return new TreeNode(val);
@@ -33,48 +35,55 @@ TreeNode* buildBST(const vector<int>& values) {
     return root;
 }
 
-TreeNode* searchBST(TreeNode* root, int val) {
-        if(!root) return root;
-
-        queue<TreeNode*> q;
-        q.push(root);
-        while(q.size()){
-            TreeNode* node = q.front();
-            q.pop();
-            if(node->val == val) return node;
-            else {
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
-            }
+int findCeil(TreeNode* root, int x)
+{
+    int ceil = -1;
+    while (root)
+    {
+        if (root->val == x)
+        {
+            ceil = root->val;
+            return ceil;
         }
-        return NULL;
+        if (root->val < x)
+        {
+            root = root->right;
+        }
+        else
+        {
+            ceil = root->val;
+            root = root->left;
+        }
     }
+    return ceil;
+}
 
-void solve() {
+void solve()
+{
     auto start = chrono::high_resolution_clock::now();
 
     // Example usage:
     vector<int> arr = {1, 2, 3, -1, 5};
-    TreeNode* root = buildBST(arr);
-    TreeNode* ans = searchBST(root, 9);
-
-    if(ans) cout << ans->val;
-    else cout << "Not found";
+    TreeNode *root = buildBST(arr);
+    int ans = findCeil(root, 1);
+    cout << "Ceil is: " << ans << endl;
 
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);
     cout << "\n\nTime taken: " << duration.count() << " ns\n";
 }
 
-signed main() {
-    #ifndef ONLINE_JUDGE
+signed main()
+{
+#ifndef ONLINE_JUDGE
     freopen("../input.txt", "r", stdin);
     freopen("../output.txt", "w", stdout);
-    #endif
+#endif
 
     int t = 1;
     // cin >> t;
-    while (t--) {
+    while (t--)
+    {
         solve();
     }
     return 0;

@@ -15,6 +15,7 @@ struct TreeNode {
     TreeNode* right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
+
 // Insert a value into the BST
 TreeNode* insertBST(TreeNode* root, int val) {
     if (!root) return new TreeNode(val);
@@ -32,34 +33,74 @@ TreeNode* buildBST(const vector<int>& values) {
         root = insertBST(root, val);
     return root;
 }
+// Brute Approach 
+// convert it into inorder traversal. then, doing two pointer approach for finding twoSum
+// TC - O(2n)
+// SC - O(n)
 
-TreeNode* searchBST(TreeNode* root, int val) {
-        if(!root) return root;
-
-        queue<TreeNode*> q;
-        q.push(root);
-        while(q.size()){
-            TreeNode* node = q.front();
-            q.pop();
-            if(node->val == val) return node;
-            else {
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
+// Better Approach
+// Use bstIterator with next() and prev()
+// TC - O(N)
+// SC - O(H*2)
+class BSTIterator {
+    stack<TreeNode*> st;
+    bool reverse;
+private:
+    void pushAll(TreeNode* node) {
+        while (node) {
+            st.push(node);
+            if(!reverse){
+                node = node->left;
+            } else {
+                node = node->right;
             }
         }
-        return NULL;
     }
+
+public:
+    BSTIterator(TreeNode* root, bool isReverse) {
+        reverse = isReverse;
+        pushAll(root); 
+    }
+
+    bool hasNext() {
+        return !st.empty();
+    }
+
+    int next() {
+        TreeNode* temp = st.top();
+        st.pop();
+        if(!reverse){
+            pushAll(temp->right);
+        } else {
+            pushAll(temp->left);
+        }
+        return temp->val;
+    }
+};
+
+bool twoSum(TreeNode* root, int k){
+    if(!root) return false;
+    BSTIterator l(root, false);
+    BSTIterator r(root, true);
+
+    int i = l.next();
+    int j = r.next();
+    while(i < j){
+        if(i + j == k) return true;
+        else if( i + j < k) i = l.next();
+        else j = r.next();
+    }
+    return false;
+}
 
 void solve() {
     auto start = chrono::high_resolution_clock::now();
 
     // Example usage:
-    vector<int> arr = {1, 2, 3, -1, 5};
-    TreeNode* root = buildBST(arr);
-    TreeNode* ans = searchBST(root, 9);
-
-    if(ans) cout << ans->val;
-    else cout << "Not found";
+    vector<int> values = {8, 3, 10, 1, 6, 14, 4, 7, 13};
+    TreeNode* root = buildBST(values);
+    cout << twoSum(root, 10);
 
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);

@@ -15,6 +15,7 @@ struct TreeNode {
     TreeNode* right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
+
 // Insert a value into the BST
 TreeNode* insertBST(TreeNode* root, int val) {
     if (!root) return new TreeNode(val);
@@ -33,33 +34,32 @@ TreeNode* buildBST(const vector<int>& values) {
     return root;
 }
 
-TreeNode* searchBST(TreeNode* root, int val) {
-        if(!root) return root;
-
-        queue<TreeNode*> q;
-        q.push(root);
-        while(q.size()){
-            TreeNode* node = q.front();
-            q.pop();
-            if(node->val == val) return node;
-            else {
-                if(node->left) q.push(node->left);
-                if(node->right) q.push(node->right);
-            }
+TreeNode* findFloor(TreeNode* root, int key){
+    TreeNode* floor;
+    while(root){
+        if(root->val == key){
+            floor = root;
+            return floor;
         }
-        return NULL;
+        if(root->val > key){
+            root = root->left;
+        }
+        else {
+            floor = root;
+            root = root->right;
+        }
     }
+    return floor;
+}
 
 void solve() {
     auto start = chrono::high_resolution_clock::now();
 
     // Example usage:
-    vector<int> arr = {1, 2, 3, -1, 5};
+    vector<int> arr = {10,5,15,2,8,13,17,-1,-1,6};
     TreeNode* root = buildBST(arr);
-    TreeNode* ans = searchBST(root, 9);
-
-    if(ans) cout << ans->val;
-    else cout << "Not found";
+    TreeNode* floor = findFloor(root, 9);
+    cout << "Floor is: " << floor->val << endl;
 
     auto stop = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::nanoseconds>(stop - start);

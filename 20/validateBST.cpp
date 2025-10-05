@@ -17,29 +17,22 @@ struct TreeNode
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
 
-TreeNode *buildTree(const vector<int> &arr)
-{
-    if (arr.empty())
-        return nullptr;
-    vector<TreeNode *> nodes(arr.size(), nullptr);
-    for (int i = 0; i < arr.size(); i++)
-    {
-        if (arr[i] != -1)
-            nodes[i] = new TreeNode(arr[i]);
-    }
-    for (int i = 0; i < arr.size(); i++)
-    {
-        if (nodes[i])
-        {
-            int left = 2 * i + 1;
-            int right = 2 * i + 2;
-            if (left < arr.size())
-                nodes[i]->left = nodes[left];
-            if (right < arr.size())
-                nodes[i]->right = nodes[right];
-        }
-    }
-    return nodes[0];
+// Insert a value into the BST
+TreeNode* insertBST(TreeNode* root, int val) {
+    if (!root) return new TreeNode(val);
+    if (val < root->val)
+        root->left = insertBST(root->left, val);
+    else
+        root->right = insertBST(root->right, val);
+    return root;
+}
+
+// Build BST from a list of values
+TreeNode* buildBST(const vector<int>& values) {
+    TreeNode* root = nullptr;
+    for (int val : values)
+        root = insertBST(root, val);
+    return root;
 }
 
 bool helper(TreeNode *root, long mini, long maxi)
@@ -65,7 +58,7 @@ void solve()
 
     // Example usage:
     vector<int> arr = {8,5,10,1,7,-1,12};
-    TreeNode *root = buildTree(arr);
+    TreeNode *root = buildBST(arr);
     cout << isValidBST(root);
 
     auto stop = chrono::high_resolution_clock::now();
