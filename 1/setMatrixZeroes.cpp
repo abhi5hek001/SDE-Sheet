@@ -130,7 +130,7 @@ void solve() {
         {3,4,5,2},
         {1,3,1,5}
     };
-    
+
     // Trying to reduce the extra time taken while marking across the rows and columns for every 0
     // Instead of marking rows and columns immediately when we see a 0 (as in brute),
     // we first record which rows and columns need to be zeroed using two separate marker arrays.
@@ -139,7 +139,7 @@ void solve() {
     cout << "======================\n";
     cout << "Better Approach\n";
     cout << "TC : 2*O(n*m)\n";
-    cout << "SC : O(n)+O(m)\n";
+    cout << "SC : O(n+m)\n";
     print(nums);
     
     nums = {
