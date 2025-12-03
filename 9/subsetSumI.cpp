@@ -13,7 +13,7 @@ void subsetSum(vector<int> &nums, int n, int ind, int sum, vector<int> &ans){
 }
 
 void solve() {
-    vector<int> nums = {3, 1, 4};
+    vector<int> nums = {3, 1, 2 };
     int n = nums.size();
     int sum = 0;
     vector<int> ans;

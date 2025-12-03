@@ -10,7 +10,7 @@ using vvi = vector<vi>;
 
 // TC - O(n)
 // SC - O(1)
-dutchNationalFlag(vi &nums, int n){
+void dutchNationalFlag(vi &nums, int n){
     int low = 0;
     int mid = 0;
     int high = n-1;
